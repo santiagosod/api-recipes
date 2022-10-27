@@ -13,6 +13,8 @@ const Types = db.define("types", {
         allowNull: false,
         unique: true
     }
+}, {
+    timestamps: false
 })
 
 module.exports = Types
