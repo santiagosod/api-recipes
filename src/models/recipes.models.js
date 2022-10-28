@@ -45,7 +45,7 @@ const Recipes = db.define("recipes", {
         }
     },
     categoryId: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         allowNull: false,
         field: "category_id",
         references: {
