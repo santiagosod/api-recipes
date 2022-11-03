@@ -1,11 +1,9 @@
-//! Dependencies
-const categoriesControllers = require("./categories.controller")
+const categoryControllers = require('./categories.controller')
 
-//? Peticiones
 const getAllCategories = (req, res) => {
-    categoriesControllers.getAllCategories()
-        .then(response => {
-            res.status(200).json(response)
+    categoryControllers.getAllCategories()
+        .then(data => {
+            res.status(200).json(data)
         })
         .catch(err => {
             res.status(400).json({ message: err.message })
@@ -14,13 +12,12 @@ const getAllCategories = (req, res) => {
 
 const getCategoryById = (req, res) => {
     const id = req.params.id
-
-    categoriesControllers.getCategoryById(id)
-        .then(response => {
-            if (response) {
-                res.status(200).json(response)
+    categoryControllers.getCategoryById(id)
+        .then(data => {
+            if (data) {
+                res.status(200).json(data)
             } else {
-                res.status(400).json({ message: `ID: ${id} not found` })
+                res.status(400).json({ message: `ID: ${id}, not exists` })
             }
         })
         .catch(err => {
@@ -28,22 +25,22 @@ const getCategoryById = (req, res) => {
         })
 }
 
-const createCategory = (req, res) => {
+const postCategory = (req, res) => {
     const { name } = req.body
 
     if (name) {
-        categoriesControllers.createCategory(name)
-            .then(response => {
-                res.status(201).json(response)
+        categoryControllers.createCategory(name)
+            .then(data => {
+                res.status(201).json(data)
             })
             .catch(err => {
                 res.status(400).json({ message: err.message })
             })
     } else {
         res.status(400).json({
-            message: "Invalid data",
+            message: 'Invalid data',
             fields: {
-                name: "string"
+                name: 'string'
             }
         })
     }
@@ -51,24 +48,23 @@ const createCategory = (req, res) => {
 
 const deleteCategory = (req, res) => {
     const id = req.params.id
-
-    categoriesControllers.deleteCategory(id)
-        .then(response => {
-            if (response) {
-                res.status(204).json(response)
+    categoryControllers.deleteCategory(id)
+        .then(data => {
+            if (data) {
+                res.status(204).json()
             } else {
-                res.status(404).json({ message: "invalid ID" })
+                res.status(404).json({ message: 'Invalid ID' })
             }
         })
         .catch(err => {
             res.status(400).json({ message: err.message })
         })
+
 }
 
-//! Exports
 module.exports = {
     getAllCategories,
     getCategoryById,
-    createCategory,
+    postCategory,
     deleteCategory
 }

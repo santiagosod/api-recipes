@@ -22,7 +22,7 @@ const Instructions = db.define("instructions", {
         allowNull: false
     },
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     }
 },)

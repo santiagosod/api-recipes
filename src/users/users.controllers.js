@@ -6,7 +6,6 @@ const { hashPassword } = require("../tools/crypto")
 //? Functions
 const getAllUsers = async () => {
     const data = await Users.findAll()
-
     return data
 }
 
