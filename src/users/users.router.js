@@ -2,6 +2,7 @@ const passport = require("passport")
 const userServices = require("./users.services")
 const router = require("express").Router()
 const adminValidate = require("../middlewares/role.middleware")
+const { getUserRecipes } = require('../recipes/recipes.services')
 require("../middlewares/auth.middleware")(passport)
 
 //? Ruta raiz
@@ -25,6 +26,12 @@ router.route("/me")
         passport.authenticate("jwt", { session: false }),
         userServices.deleteMyUser
     )
+
+router.get('/me/my_recipes',
+    passport.authenticate('jwt', { session: false }),
+    getUserRecipes
+)
+
 
 //? Rutas dinamicas por ID 
 router.route("/:id")

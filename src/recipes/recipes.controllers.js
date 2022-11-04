@@ -7,6 +7,7 @@ const Recipes = require('../models/recipes.models')
 const IngredientsRecipes = require('../models/recipes_ingredients.models')
 const Types = require('../models/types.models')
 const Users = require('../models/users.models')
+const UsersIngredients = require('../models/users_ingredients.models')
 
 const getAllRecipes = async () => {
     const data = await Recipes.findAll({
@@ -83,13 +84,15 @@ const deleteRecipe = async (id) => {
 }
 
 const getMyRecipes = async (userId) => {
-    const userIngredients = await Recipes.findAll({
+    const userIngredients = await UsersIngredients.findAll({
         attributes: ["ingredientId"],
         where: {
             userId
         }
     })
+    
     const filterIngredients = userIngredients.map(obj => obj.ingredientId)
+
     const recipeIngredients = await IngredientsRecipes.findAll({
         where: {
             ingredientId: {
@@ -97,6 +100,7 @@ const getMyRecipes = async (userId) => {
             }
         }
     })
+
     const filteredRecipes = recipeIngredients.map(obj => obj.recipeId)
 
     const data = await Recipes.findAll({

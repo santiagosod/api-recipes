@@ -32,7 +32,8 @@ router.route('/:ingredient_id')
     )
 
 router.post("/:ingredient_id/add_to_user",
-    passport.authenticate("jwt", { session: false })
+    passport.authenticate("jwt", { session: false }),
+    ingredientServices.postIngredientsToUser
 )
 
 module.exports = router

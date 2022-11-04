@@ -106,7 +106,8 @@ module.exports = {
     getIngredientById,
     postIngredient,
     patchIngredient,
-    deleteIngredient
+    deleteIngredient,
+    postIngredientsToUser
 }
 
 
